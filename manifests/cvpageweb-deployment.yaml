@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: cvpage-app
-        image: gcr.io/cv-page-206506/cvpage-app-tls:1.0
+        image: gcr.io/cv-page-206506/cvpage:v1
         imagePullPolicy: Always
         ports:
         - containerPort: 8443
