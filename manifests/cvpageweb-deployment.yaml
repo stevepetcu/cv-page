@@ -1,0 +1,32 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: cvpageweb
+  labels:
+    app: cvpage
+spec:
+  template:
+    metadata:
+      labels:
+        app: cvpage
+        tier: web
+    spec:
+      containers:
+      - name: cvpage-app
+        image: gcr.io/cv-page-206506/cvpage-app-tls:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8443
+        volumeMounts:
+          - name: tls
+            mountPath: /etc/tls
+            readOnly: true
+        env:
+          - name: TLS_CERT
+            value: /etc/tls/tls.crt
+          - name: TLS_KEY
+            value: /etc/tls/tls.key
+      volumes:
+      - name: tls
+        secret:
+          secretName: yourdomain-tls
